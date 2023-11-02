@@ -5,21 +5,22 @@ struct Polygon {
     int an;
     double len;
 };
-bool kctwojapupedzikusie = true;
 
 double area(const Polygon* p1){
-    double ar = (p1->an * (p1->len * p1->len)) / (4.0 * tan((M_PI / p1->an)));
-    return ar;
+    // wzór na pole polygonu
+    return (p1->an * (p1->len * p1->len)) / (4.0 * tan((M_PI / p1->an)));
 }
 
 Polygon scaled(const Polygon* p, double sc) {
     Polygon p2;
     p2.an = p->an;
+//  skalowanie, mnożenie długości boku przez scale factor
     p2.len = p->len * sc;
     return p2;
 }
 
 void scale(Polygon* p, double sc){
+//  przekształcanie podanego wielokąta przez daną jednokładność
     p->len = p->len*sc;
 }
 
