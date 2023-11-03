@@ -7,7 +7,7 @@ struct Polygon {
 };
 
 double area(const Polygon* p1){
-    // wzór na pole polygonu
+    // wzór na pp polygonu
     return (p1->an * (p1->len * p1->len)) / (4.0 * tan((M_PI / p1->an)));
 }
 
