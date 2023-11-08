@@ -44,7 +44,6 @@ void create_ins(Q &ins){
 int main(){
     Q quiz[10];
     Q temp;
-
     bool flag = true;
     int ans;
     for(int i=0;i<10;i++){
