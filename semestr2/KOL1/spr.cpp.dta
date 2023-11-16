@@ -1,0 +1,39 @@
+#include <iostream>
+
+struct Node {
+  Node *left;
+  Node *top;
+  Node *right;
+
+  char str[10];
+};
+
+bool insert_node(Node **head, const char *str);
+
+void free_tree(Node **head);
+
+void prints(const Node *head) {
+  if (head->left) {
+    prints(head->left);
+  }
+
+  if (head->right) {
+    prints(head->right);
+  }
+
+  std::cout << head->str << std::endl;
+}
+
+int main() {
+  Node *head = nullptr;
+
+  insert_node(&head, "ekierka");
+  insert_node(&head, "abecadlo");
+  insert_node(&head, "wierzba");
+
+  prints(head);
+  
+  free_tree(&head);
+
+  return 0;
+}
