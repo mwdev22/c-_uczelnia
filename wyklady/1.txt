@@ -1,0 +1,4 @@
+std::cin
+std::cout
+
+pi = 4.*std::atan(1.);

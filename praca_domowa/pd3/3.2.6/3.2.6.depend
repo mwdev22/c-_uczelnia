@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1678895262 source:c:\cppuczelnia\praca_domowa\pd3\3.2.6\main.cpp
+	<iostream>
+	<cmath>
+

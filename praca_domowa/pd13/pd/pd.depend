@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1686770151 source:c:\cppuczelnia\praca_domowa\pd13\pd\main.cpp
+	<iostream>
+	<functional>
+	<vector>
+
+1686770951 source:c:\cppuczelnia\praca_domowa\pd13\pd\pd2.cpp
+	<iostream>
+	<vector>
+	<functional>
+
