@@ -8,6 +8,7 @@ private:
 public:
     Bottle(double v) : vol(v), fluid_volume(0) {}
 
+
     double volume() const { return fluid_volume; }
 
     double fill(double f_vol);
@@ -15,6 +16,7 @@ public:
     double pour(double p_vol);
 };
 
+// napełnianie butelki odpowiednia ilością
 double Bottle::fill(double f_vol) {
     double sum = fluid_volume + f_vol;
     if (sum <= vol) {
@@ -27,6 +29,7 @@ double Bottle::fill(double f_vol) {
     }
 }
 
+// wylewanie możliwej ilości płynu, zwracanie odpowiedniej wartości w obu przypadkach
 double Bottle::pour(double p_vol) {
     if (p_vol <= fluid_volume) {
         fluid_volume -= p_vol;
