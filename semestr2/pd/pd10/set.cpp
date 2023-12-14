@@ -1,88 +1,100 @@
 #include <iostream>
 
+class Set {
+private:
 
-class Set{
-    private:
-        struct Node {
-            double data;
-            Node* next; 
-        };
-        Node* top;
+//  podstawowa struktura drzewa
+    struct Node {
+        int data;
+        Node* left;
+        Node* right;
+    };
+    Node* root;
 
-    public:
+    // pomocnicze funkcje do kopiowania i usuwania setu
+    void copy_tree(Node*& root, const Node* source);
+    void destroy_tree(Node*& root);
 
+public:
     Set();
+    Set(const Set& s);
     ~Set();
-
-    Set& insert(double num);
-
-    double count(double num) const;
-
     Set& operator=(const Set& s);
+
+    Set& insert(int num);
+    int count(int num) const;
 };
 
-Set::Set() : top(nullptr){}
+Set::Set() : root(nullptr) {}
 
-Set::~Set(){
-    Node* current = top;
-    while(current!=nullptr){
-        Node* temp = current;
-        current = temp->next;
-        std::free(temp);
-    }
+Set::Set(const Set& s) : root(nullptr) {
+    copy_tree(root, s.root);
 }
 
-Set& Set::operator=(const Set& s){
-    Node* new_top = s.top;
+Set::~Set() {
+    destroy_tree(root);
+}
 
+Set& Set::operator=(const Set& s) {
     if (this == &s) {
-        return *this; 
+        return *this;
     }
-    
-    if(s.top!=nullptr){
-        Node* temp = s.top;
-        Node* new_top = new Node{temp->data, nullptr};
-        top = new_top;
 
-        Node* current = top;
-        temp = temp->next;
+    copy_tree(root, s.root);
 
-        while (temp != nullptr) {
-            current->next = new Node{temp->data, nullptr};
-            current = current->next;
-            temp = temp->next;
-        }
-    }
     return *this;
 }
 
-Set& Set::insert(double num){
-    Node* temp = top;
-    Node* new_top = this->top;
-    if(top!=nullptr){
-        while (temp->next!=nullptr){
-            temp=temp->next;
+Set& Set::insert(int num) {
+    Node** current = &root;
+
+    while (*current != nullptr) {
+        if (num < (*current)->data) {
+            current = &(*current)->left;
+        } else if (num > (*current)->data) {
+            current = &(*current)->right;
+        } else {
+            return *this;
         }
-        temp->next = new Node{num, nullptr};
-    }else{
-        this->top = new Node{num, nullptr};
     }
 
+    *current = new Node{num, nullptr, nullptr};
     return *this;
-    
 }
 
-double Set::count(double num) const{
-    Node* temp = top;
-    while(temp!=nullptr){
-        if(temp->data==num){
+int Set::count(int num) const {
+    Node* current = root;
+
+    // przeszukiwanie drzewa w zależności od wartości num
+    while (current != nullptr) {
+        if (num < current->data) {
+            current = current->left;
+        } else if (num > current->data) {
+            current = current->right;
+        } else {
+        // element znaleziony
             return 1;
         }
-        temp = temp->next;
     }
     return 0;
 }
-
+void Set::copy_tree(Node*& root, const Node* source) {
+    if (source == nullptr) {
+        root = nullptr;
+    } else {
+        root = new Node{source->data, nullptr, nullptr};
+        copy_tree(root->left, source->left);
+        copy_tree(root->right, source->right);
+    }
+}
+void Set::destroy_tree(Node*& root) {
+    if (root != nullptr) {
+        destroy_tree(root->left);
+        destroy_tree(root->right);
+        delete root;
+        root = nullptr;
+    }
+}
 
 int main() {
     Set set1, set2;
